@@ -26,7 +26,7 @@ class DespesaController {
 			const criarNovaDespesa = await database.Despesas.create(novaDespesa);
 			return res.status(201).json(criarNovaDespesa);
 		} catch (error){
-			return res.status(500).json(error.message);
+			return res.status(500).json({message: "Em categoria são permitidos apenas estes valores: Lazer, Alimentação, Saúde, Moradia, Transporte, Imprevistos, Educação, Outras, (não esqueça da acentuação e da primeira letra maiúscula) A inforção da categoria é opcional por padrão se a categoria não for especificada o valor automaticamente será (Outras) !"});
 		}
 	}
 

@@ -12,6 +12,13 @@ module.exports = (sequelize, DataTypes) => {
   Despesas.init({
     descricao: DataTypes.STRING,
     valor: DataTypes.DECIMAL,
+    categoria: {
+      type: DataTypes.STRING,
+      defaultValue: 'Outras',
+      validate: {
+        isIn: [["Lazer", "Alimentação", "Saúde", "Moradia", "Transporte", "Imprevistos", "Educação", "Outras"]]
+      }
+    },
     data: DataTypes.DATEONLY
   }, {
     sequelize,
