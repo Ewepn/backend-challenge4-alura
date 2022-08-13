@@ -51,6 +51,16 @@ class ReceitaController {
 			return res.status(500).json(error.message);
 		}
 	}
+
+	static async restauraReceita(req, res){
+		const { id } = req.params
+		try {
+			await database.Receitas.restore({ where: {id: Number(id)}});
+			return res.status(200).json({message: `Receita de id: ${id} foi restaurada com sucesso !`})
+		} catch (error) {
+			return res.status(500).json(error.message);
+		}
+	}
 }
 
 module.exports = ReceitaController;

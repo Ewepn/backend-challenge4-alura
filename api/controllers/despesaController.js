@@ -51,6 +51,16 @@ class DespesaController {
 			return res.status(500).json(error.message);
 		}
 	}
+
+	static async restauraDespesas(req, res){
+		const { id } = req.params
+		try {
+			await database.Despesas.restore({ where: {id: Number(id)}});
+			return res.status(200).json({message: `Despesa de id: ${id} foi restaurada com sucesso !`})
+		} catch (error) {
+			return res.status(500).json(error.message);
+		}
+	}
 }
 
 module.exports = DespesaController;
