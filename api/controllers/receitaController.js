@@ -1,9 +1,16 @@
 const database  = require("../models");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op
 
 class ReceitaController {
 	static async listarReceitas(req, res) {
+		const  descricaoReceitas  = req.query.descricao
+		const where = {}
+		descricaoReceitas ? where.descricao = {} : null;
+		descricaoReceitas ? where.descricao[Op.like] = `%${descricaoReceitas}` : null;
+
 		try {
-			const listaCompleta = await database.Receitas.findAll();
+			const listaCompleta = await database.Receitas.findAll({where});
 			return res.status(200).json(listaCompleta);
 		} catch (error){
 			return res.status(500).json(error.message);

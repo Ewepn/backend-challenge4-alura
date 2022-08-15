@@ -1,9 +1,16 @@
 const database  = require("../models");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op
 
 class DespesaController {
 	static async listarDespesas(req, res) {
+		const  descricaoDespesas  = req.query.descricao
+		const where = {}
+		descricaoDespesas ? where.descricao = {} : null;
+		descricaoDespesas ? where.descricao[Op.like] = `%${descricaoDespesas}` : null;
+
 		try {
-			const listaCompleta = await database.Despesas.findAll();
+			const listaCompleta = await database.Despesas.findAll({where});
 			return res.status(200).json(listaCompleta);
 		} catch (error){
 			return res.status(500).json(error.message);
@@ -26,7 +33,7 @@ class DespesaController {
 			const criarNovaDespesa = await database.Despesas.create(novaDespesa);
 			return res.status(201).json(criarNovaDespesa);
 		} catch (error){
-			return res.status(500).json({message: "Em categoria são permitidos apenas estes valores: Lazer, Alimentação, Saúde, Moradia, Transporte, Imprevistos, Educação, Outras, (não esqueça da acentuação e da primeira letra maiúscula) A inforção da categoria é opcional por padrão se a categoria não for especificada o valor automaticamente será (Outras) !"});
+			return res.status(500).json(error.message);
 		}
 	}
 
