@@ -7,7 +7,7 @@ class ReceitaController {
 		const  descricaoReceitas  = req.query.descricao
 		const where = {}
 		descricaoReceitas ? where.descricao = {} : null;
-		descricaoReceitas ? where.descricao[Op.like] = `%${descricaoReceitas}` : null;
+		descricaoReceitas ? where.descricao[Op.like] = `${descricaoReceitas}` : null;
 
 		try {
 			const listaCompleta = await database.Receitas.findAll({where});
@@ -23,6 +23,20 @@ class ReceitaController {
 			const umaReceita = await database.Receitas.findOne({where: {id: Number(id)}});
 			return res.status(200).json(umaReceita);
 		} catch (error){
+			return res.status(500).json(error.message);
+		}
+	}
+
+	static async listarReceitasPorAnoEMes(req, res){
+		const { ano, mes } = req.params
+		const where = {}
+		ano || mes ? where.data = {} : null; 
+		ano || mes ? where.data[Op.startsWith] = `${ano}-${mes}` : null;
+		
+		try {
+			const resultado = await database.Receitas.findAndCountAll({where});		
+			return res.status(200).json(resultado); 
+		} catch (error) {
 			return res.status(500).json(error.message);
 		}
 	}

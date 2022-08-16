@@ -1,5 +1,6 @@
 const database  = require("../models");
 const Sequelize = require("sequelize");
+const { where } = require("sequelize");
 const Op = Sequelize.Op
 
 class DespesaController {
@@ -7,7 +8,7 @@ class DespesaController {
 		const  descricaoDespesas  = req.query.descricao
 		const where = {}
 		descricaoDespesas ? where.descricao = {} : null;
-		descricaoDespesas ? where.descricao[Op.like] = `%${descricaoDespesas}` : null;
+		descricaoDespesas ? where.descricao[Op.like] = `${descricaoDespesas}` : null;
 
 		try {
 			const listaCompleta = await database.Despesas.findAll({where});
@@ -23,6 +24,20 @@ class DespesaController {
 			const umaDespesa = await database.Despesas.findOne({where: {id: Number(id)}});
 			return res.status(200).json(umaDespesa);
 		} catch (error){
+			return res.status(500).json(error.message);
+		}
+	}
+
+	static async listarDespesasPorAnoEMes(req, res){
+		const { ano, mes } = req.params
+		const where = {}
+		ano || mes ? where.data = {} : null; 
+		ano || mes ? where.data[Op.startsWith] = `${ano}-${mes}` : null;
+		
+		try {
+			const resultado = await database.Despesas.findAndCountAll({where});		
+			return res.status(200).json(resultado); 
+		} catch (error) {
 			return res.status(500).json(error.message);
 		}
 	}

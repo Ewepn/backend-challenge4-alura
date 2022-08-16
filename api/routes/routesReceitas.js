@@ -5,6 +5,7 @@ const router = Router();
 
 router
     .get("/receitas", ReceitasController.listarReceitas)
+    .get("/receitas/:ano/:mes", ReceitasController.listarReceitasPorAnoEMes)
     .get("/receitas/:id", ReceitasController.listarUmaReceita)
     .post("/receitas", ReceitasController.cadastroReceita)
     .post("/receitas/:id/restaura", ReceitasController.restauraReceita)
