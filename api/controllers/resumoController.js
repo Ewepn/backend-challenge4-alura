@@ -47,14 +47,14 @@ class ResumoController {
                 resultadoFinal.push(`Saldo final no mês: ${media}`);
             }
 
-            let lazer = new Array();
-            let alimentacao = new Array();
-            let saude = new Array();
-            let moradia = new Array();
-            let transporte = new Array();
-            let imprevistos = new Array();
-            let educacao = new Array();
-            let outras = new Array();
+            const lazer = new Array();
+            const alimentacao = new Array();
+            const saude = new Array();
+            const moradia = new Array();
+            const transporte = new Array();
+            const imprevistos = new Array();
+            const educacao = new Array();
+            const outras = new Array();
 
             for (let i = 0; i < categoriaDespesas.length; i++){
                 let supp = categoriaDespesas[i];
