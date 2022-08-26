@@ -1,6 +1,5 @@
 const database  = require("../models");
 const Sequelize = require("sequelize");
-const { where } = require("sequelize");
 const Op = Sequelize.Op
 
 class DespesaController {
