@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 
 class UsersController {
     static async listarUsuarios(req, res) {
-    try {
-			const listaCompleta = await database.Users.findAll();
+    	try {
+			const listaCompleta = await database.Users.findAll({attributes: ['id', 'usuario', 'email']});
 			return res.status(200).json(listaCompleta);
 		} catch (error){
 			return res.status(500).json(error.message);
@@ -14,7 +14,7 @@ class UsersController {
 	static async listarUmUsuario(req, res){
 		const { id } = req.params
 		try{
-			const umUsuario = await database.Users.findOne({where: {id: Number(id)}});
+			const umUsuario = await database.Users.findOne({attributes: ['id', 'usuario', 'email', 'createdAt', 'updatedAt', 'deletedAt'],where: {id: Number(id)}});
 			return res.status(200).json(umUsuario);
 		} catch (error){
 			return res.status(500).json(error.message);
@@ -29,12 +29,15 @@ class UsersController {
 				return res.status(500).json({message: "Usuário já existe!"});
 			}
 
-			bcrypt.hash(req.body.senha, 12, async (errBcrypt, hash) =>{
+			bcrypt.hash(req.body.senha, 12, async(errBcrypt, hash) =>{
 				if (errBcrypt) {
 					return res.status(500).json({ error: errBcrypt });
 				}
-				const criarNovoUsuario = await database.Users.create({usuario: req.body.usuario, email: req.body.email, senha: hash});
-				return res.status(201).json(criarNovoUsuario);
+				await database.Users.create({usuario: req.body.usuario, email: req.body.email, senha: hash});
+				
+				const novoUsuario = await database.Users.findOne({attributes: ['id', 'usuario', 'email'],where: {usuario: req.body.usuario}});
+	
+				usuario ? res.status(200).json({message: 'Usuário cadastrado com Sucesso !',usuarioCadastrado: novoUsuario}) : res.status(500).json(error.message);
 			});
 			
 		} catch (error){
@@ -71,8 +74,7 @@ class UsersController {
 				});
 			}
 			
-			const usuarioAtualizado = await database.Users.findOne({where: {id: Number(id)}});
-			return res.status(200).json(usuarioAtualizado);
+			usuario ? res.status(200).json({message: 'Dados Atualizados!',usuarioAtualizado:{usuario: req.body.usuario, email: req.body.email}}) : res.status(500).json(error.message);
 		} catch (error){
 			return res.status(500).json({ message: 'Não foi possível atualizar o usuário !'});
 		}
