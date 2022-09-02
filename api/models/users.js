@@ -1,10 +1,12 @@
 'use strict';
-const { Model } = require('sequelize');
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
 
     static associate(models) {
-  
+      
     }
   }
   Users.init({
@@ -37,11 +39,12 @@ module.exports = (sequelize, DataTypes) => {
           msg: "A senha não pode ser vazia"
         }
       }
-    }
+    },
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
+    paranoid: true,
     modelName: 'Users',
-    paranoid: true
   });
   return Users;
 };
