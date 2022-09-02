@@ -1,15 +1,16 @@
 const { Router } = require("express");
 const ReceitasController = require("../controllers/receitaController");
+const { middlewaresAutenticacao } = require("../authenticate/exports");
 
 const router = Router();
 
 router
     .get("/receitas", ReceitasController.listarReceitas)
-    .get("/receitas/:ano/:mes", ReceitasController.listarReceitasPorAnoEMes)
-    .get("/receitas/:id", ReceitasController.listarUmaReceita)
-    .post("/receitas", ReceitasController.cadastroReceita)
-    .post("/receitas/:id/restaura", ReceitasController.restauraReceita)
-    .put("/receitas/:id", ReceitasController.atualizarReceita)
-    .delete("/receitas/:id", ReceitasController.excluiReceita)
+    .get("/receitas/:ano/:mes", middlewaresAutenticacao.bearer, ReceitasController.listarReceitasPorAnoEMes)
+    .get("/receitas/:id", middlewaresAutenticacao.bearer, ReceitasController.listarUmaReceita)
+    .post("/receitas", middlewaresAutenticacao.bearer, ReceitasController.cadastroReceita)
+    .post("/receitas/:id/restaura", middlewaresAutenticacao.bearer, ReceitasController.restauraReceita)
+    .put("/receitas/:id", middlewaresAutenticacao.bearer, ReceitasController.atualizarReceita)
+    .delete("/receitas/:id", middlewaresAutenticacao.bearer, ReceitasController.excluiReceita)
 
 module.exports = router;
