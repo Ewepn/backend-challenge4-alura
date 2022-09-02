@@ -1,10 +1,26 @@
 const database = require("../models");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-class UsersController {
+function criarTokenJWT(usuario){
+	const payload = {
+		id: usuario.id
+	};
+	const token = jwt.sign(payload, process.env.CHAVE_JWT);
+	return token;
+}
+
+class UsersController {	
+
+	static async loginUsuario(req, res){
+		const token = criarTokenJWT(req.user);
+		res.set('Authorization', token);
+		res.status(200).json({message: 'Login efetuado com sucesso !'});
+	}
+
     static async listarUsuarios(req, res) {
     	try {
-			const listaCompleta = await database.Users.findAll({attributes: ['id', 'usuario', 'email']});
+			const listaCompleta = await database.Users.findAll({attributes: ['id', 'usuario']});
 			return res.status(200).json(listaCompleta);
 		} catch (error){
 			return res.status(500).json(error.message);

@@ -10,7 +10,7 @@ class DespesaController {
 		descricaoDespesas ? where.descricao[Op.like] = `${descricaoDespesas}` : null;
 
 		try {
-			const listaCompleta = await database.Despesas.findAll({where});
+			const listaCompleta = await database.Despesas.findAll({attributes: ['id', 'descricao', 'categoria']},{where});
 			return res.status(200).json(listaCompleta);
 		} catch (error){
 			return res.status(500).json(error.message);
