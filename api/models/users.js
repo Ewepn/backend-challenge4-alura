@@ -1,17 +1,18 @@
 'use strict';
-const { Model } = require('sequelize');
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
 
     static associate(models) {
-  
+      
     }
   }
   Users.init({
     usuario: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         len: {
           args: [4, 10],
@@ -38,11 +39,12 @@ module.exports = (sequelize, DataTypes) => {
           msg: "A senha não pode ser vazia"
         }
       }
-    }
+    },
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
+    paranoid: true,
     modelName: 'Users',
-    paranoid: true
   });
   return Users;
 };
