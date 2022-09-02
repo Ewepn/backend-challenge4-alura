@@ -9,9 +9,48 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	Receitas.init(
 		{
-			descricao: DataTypes.STRING,
-			valor: DataTypes.DECIMAL,
-			data: DataTypes.DATEONLY,
+			descricao: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notNull: {
+						args: true,
+						msg: 'A descrição deve ser informada'
+					},
+					notEmpty: {
+						args: true,
+						msg: 'A descrição deve ser informada'
+					}
+				}
+			},
+			valor: {
+				type: DataTypes.DECIMAL,
+				allowNull: false,
+				validate: {
+					notNull: {
+						args: true,
+						msg: 'O valor deve ser informado'
+					},
+					notEmpty: {
+						args: true,
+						msg: 'O valor deve ser informado'
+					}
+				}
+			},
+			data: {
+				type: DataTypes.DATEONLY,
+				allowNull: false,
+				validate: {
+					notNull: {
+						args: true,
+						msg: 'A data deve ser informada'
+					},
+					notEmpty: {
+						args: true,
+						msg: 'A data deve ser informada'
+					}
+				}
+			},
 		},
 		{
 			sequelize,

@@ -44,8 +44,10 @@ class ReceitaController {
 	static async cadastroReceita(req, res){
 		const novaReceita = req.body
 		try{
+
 			const criarNovaReceita = await database.Receitas.create(novaReceita);
 			return res.status(201).json(criarNovaReceita);
+
 		} catch (error){
 			return res.status(500).json(error.message);
 		}

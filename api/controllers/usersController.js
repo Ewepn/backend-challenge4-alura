@@ -6,12 +6,11 @@ function criarTokenJWT(usuario){
 	const payload = {
 		id: usuario.id
 	};
-	const token = jwt.sign(payload, process.env.CHAVE_JWT);
+	const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: '24h' });
 	return token;
 }
 
 class UsersController {	
-
 	static async loginUsuario(req, res){
 		const token = criarTokenJWT(req.user);
 		res.set('Authorization', token);
