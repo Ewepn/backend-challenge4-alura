@@ -34,6 +34,7 @@ module.exports = {
                 return res.status(401).json({error: 'Verifique as credênciais'});
             }
 
+            req.token = info.token;
             req.user = usuario;
             return next();
         })(req, res, next);

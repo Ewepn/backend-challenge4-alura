@@ -6,6 +6,7 @@ const router = Router();
 
 router
     .get("/usuarios", UsersController.listarUsuarios)
+    .get("/usuarios/logout", middlewaresAutenticacao.bearer, UsersController.logoutUsuario)
     .get("/usuarios/:id", middlewaresAutenticacao.bearer, UsersController.listarUmUsuario)
     .post("/usuarios", UsersController.cadastrarUsuario)
     .post("/usuarios/:id/restaura", middlewaresAutenticacao.bearer, UsersController.restaurarUsuario)

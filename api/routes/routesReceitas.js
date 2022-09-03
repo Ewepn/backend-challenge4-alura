@@ -5,7 +5,7 @@ const { middlewaresAutenticacao } = require("../authenticate/exports");
 const router = Router();
 
 router
-    .get("/receitas", ReceitasController.listarReceitas)
+    .get("/receitas", middlewaresAutenticacao.bearer, ReceitasController.listarReceitas)
     .get("/receitas/:ano/:mes", middlewaresAutenticacao.bearer, ReceitasController.listarReceitasPorAnoEMes)
     .get("/receitas/:id", middlewaresAutenticacao.bearer, ReceitasController.listarUmaReceita)
     .post("/receitas", middlewaresAutenticacao.bearer, ReceitasController.cadastroReceita)
