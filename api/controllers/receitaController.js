@@ -10,7 +10,7 @@ class ReceitaController {
 		descricaoReceitas ? where.descricao[Op.like] = `${descricaoReceitas}` : null;
 
 		try {
-			const listaCompleta = await database.Receitas.findAll({attributes: ['id', 'descricao']},{where});
+			const listaCompleta = await database.Receitas.findAll({attributes: ['id', 'descricao', 'valor']},{where});
 			return res.status(200).json(listaCompleta);
 		} catch (error){
 			return res.status(500).json(error.message);
@@ -44,8 +44,10 @@ class ReceitaController {
 	static async cadastroReceita(req, res){
 		const novaReceita = req.body
 		try{
+
 			const criarNovaReceita = await database.Receitas.create(novaReceita);
 			return res.status(201).json(criarNovaReceita);
+
 		} catch (error){
 			return res.status(500).json(error.message);
 		}

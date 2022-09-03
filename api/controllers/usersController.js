@@ -1,21 +1,31 @@
 const database = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const blacklist = require('../redis/manipula-blacklist');
 
 function criarTokenJWT(usuario){
 	const payload = {
 		id: usuario.id
 	};
-	const token = jwt.sign(payload, process.env.CHAVE_JWT);
+	const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: '24h' });
 	return token;
 }
 
 class UsersController {	
-
-	static async loginUsuario(req, res){
+	static loginUsuario(req, res){
 		const token = criarTokenJWT(req.user);
 		res.set('Authorization', token);
 		res.status(200).json({message: 'Login efetuado com sucesso !'});
+	}
+
+	static async logoutUsuario(req, res){
+		try {			
+			const token = req.token;
+			await blacklist.adiciona(token);
+			res.status(204).send();
+		} catch (error) {
+			res.status(500).json(error.message);
+		}
 	}
 
     static async listarUsuarios(req, res) {

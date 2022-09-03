@@ -22,6 +22,10 @@ module.exports = {
                 return res.status(401).json({error: error.message});
             }
 
+            if(error && error.name === 'TokenExpiredError'){
+                return res.status(401).json({error: error.message, expiradoEm: error.expiredAt});
+            }
+
             if(error){
                 return res.status(500).json({error: error.message});
             }
@@ -30,6 +34,7 @@ module.exports = {
                 return res.status(401).json({error: 'Verifique as credênciais'});
             }
 
+            req.token = info.token;
             req.user = usuario;
             return next();
         })(req, res, next);
