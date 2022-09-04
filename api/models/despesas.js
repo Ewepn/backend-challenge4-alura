@@ -48,7 +48,20 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    data: DataTypes.DATEONLY
+    data: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'A data deve ser informada'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'A data deve ser informada'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Despesas',
