@@ -79,7 +79,7 @@ CHAVE_JWT = sua chave JWT aqui
 ```
 ---
 <h3>Executando aplicação :</h3>
-A API está configurada para rodar na porta 4002 se deseja alterar va até o arquivo <strong>server.js</strong> localizada dentro da pasta <strong>api</strong>, no terminal rode o comando:
+A API está configurada para rodar na porta 4002 se deseja alterar va até o arquivo <strong>server.js</strong> localizado dentro da pasta <strong>api</strong>, no terminal rode o comando:
 
 ```bash
 npm run dev
@@ -94,9 +94,9 @@ Nos metodos DELETE foi aplicado um Soft Delete para os dados serem mantidos no b
 ---
 ! IMPORTANTE ⭐
 
-<strong>Apague as chaves { } e preencha com a informação</strong>
+Após o login de usuário na rota (http://localhost:4002/usuarios/login) copie o Token de Authorization nos Headres da resposta da requisição e cole nas proximas requisições que desejar efetuar na aba Authorization no tipo Bearer Token, por padrão configurei o token para expirar em 24hrs ou no momento do logout se desejar alterar o tempo de expiração vá até a pasta <strong>controllers</strong> no arquivo <strong>usersController.js</strong> e faça a alteração na função criarTokenJWT
 
-Após o login de usuário na rota (http://localhost:4002/usuarios/login) copie o Token de Authorization nos Headres da resposta da requisição e o copie nas proximas requisições que desejar efetuar na aba Authorization no tipo Bearer Token, por padrão configurei o token para expirar em 24hrs ou no momento do logout se desejar alterar o tempo de expiração vá até a pasta <strong>controllers</strong> no arquivo <strong>usersController.js</strong> e faça a alteração na função criarTokenJWT
+<strong>Apague as chaves { } e preencha com a informação</strong>
 
 ---
 * <strong>GET usuários</strong>
