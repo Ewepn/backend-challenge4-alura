@@ -2,7 +2,7 @@
 Este projeto foi elaborado no challenge Back-end edição 4 da Alura.
 
 ---
-<h4>DETALHES SOBRE O PROJETO</h4>
+<h4>DETALHES SOBRE O PROJETO :</h4>
 Em apenas quatro semanas desenvolver uma API Rest de uma aplicação de controle financeiro, realizar validações de regras de negócio, implementar um relatório de informações e um controle de acesso !
 
 * Os challenges são desenvolvidos para que os alunos e alunas da Alura possam colocar em prática tudo o que estão aprendendo.
@@ -43,6 +43,31 @@ Os times de frontend e UI já estão trabalhando no layout e nas telas. Para o b
 
 # Como rodar a API 
 Após clonar o projeto e instalar suas dependências instale também as dependências de desenvolvimento (dotenv e nodemon) após as instalações, crie um arquivo na pasta <strong>backend-challenge4-alura</strong> com o nome <strong>.env</strong> (aqui você irá criar suas variáveis de desenvolvimento) copie e cole o codigo abaixo e faça as suas modificações conforme seu banco de dados.
+* Recomendado utilizar as mesmas versões das dependências
+* Tenha o redis instalado no seu PC 
+(windows https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504)
+Linux(https://redis.io/download/)
+```bash
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"body-parser": "^1.20.0",
+		"express": "^4.18.1",
+		"jsonwebtoken": "^8.5.1",
+		"mysql2": "^2.3.3",
+		"passport": "^0.6.0",
+		"passport-http-bearer": "^1.0.1",
+		"passport-local": "^1.0.0",
+		"path": "^0.12.7",
+		"redis": "^3.0.2",
+		"sequelize": "^6.21.4",
+		"sequelize-cli": "^6.4.1"
+	},
+	"devDependencies": {
+		"dotenv": "^16.0.1",
+		"nodemon": "^2.0.19"
+	}
+```
+
 * sobre JWT https://jwt.io/introduction
 
 ```bash
